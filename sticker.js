@@ -1,0 +1,6 @@
+const content=document.querySelector('#content'),drag=document.querySelector('#drag');let locked=false,dragging=false,lastX=0,lastY=0;
+function show(item){content.replaceChildren();if(!item||!item.displaySrc)return;if(item.kind==='url'){const f=document.createElement('iframe');f.src=item.displaySrc;f.referrerPolicy='no-referrer';f.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-presentation');f.allow='autoplay; fullscreen';content.append(f);}else{const i=document.createElement('img');i.src=item.displaySrc;i.alt=item.name||'GIF Float';content.append(i);}}
+window.stickerAPI.onUpdate(show);window.stickerAPI.onLock(v=>{locked=!!v;document.body.classList.toggle('unlocked',!locked);});
+drag.onpointerdown=e=>{if(locked)return;dragging=true;lastX=e.screenX;lastY=e.screenY;drag.setPointerCapture(e.pointerId);};
+drag.onpointermove=e=>{if(!dragging||locked)return;const dx=e.screenX-lastX,dy=e.screenY-lastY;lastX=e.screenX;lastY=e.screenY;if(dx||dy)window.stickerAPI.moveBy(dx,dy);};
+drag.onpointerup=()=>dragging=false;drag.onpointercancel=()=>dragging=false;

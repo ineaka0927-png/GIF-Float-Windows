@@ -1,0 +1,9 @@
+{
+  "name":"gif-float-windows","version":"1.0.0","main":"main.js",
+  "scripts":{"start":"electron .","dist:win":"electron-builder --win nsis"},
+  "devDependencies":{"electron":"^35.0.0","electron-builder":"^26.0.12"},
+  "build":{"appId":"com.giffloat.desktop","productName":"GIF Float",
+    "files":["main.js","preload.js","sticker-preload.js","index.html","style.css","renderer.js","sticker.html","sticker.css","sticker.js"],
+    "win":{"target":["nsis"],"artifactName":"GIF-Float-Setup-${version}.${ext}"},
+    "nsis":{"oneClick":false,"allowToChangeInstallationDirectory":true,"createDesktopShortcut":true}}
+}
